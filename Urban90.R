@@ -34,7 +34,7 @@ for (i in dindex) {
 #--------------------------------
 # adding hazine to numeric
 hvector <- c("nhazineh","ghazineh","vkhorak","vgheirkhorak")
-for (j in hvector){s
+for (j in hvector){
   hindex<- which(names(urban)==j)
   urban[ ,hindex] <-as.numeric(urban[ ,hindex])
 }
@@ -43,3 +43,27 @@ for (j in hvector){s
 #---------------------------------
 # Data Exploration
 summary(urban$daramad)
+
+#---------------------------------
+#modeling data
+#formula1 <- daramad ~ .
+
+# for (k in 1:length(names(urban)[dindex])){
+#   for (l in names(urban)[dindex][k]){
+#   mformula <- update(formula1,data=urban, ~.- l)
+# }
+# }
+# 
+# length(names(urban)[dindex])
+#DF[,!(names(DF) %in% drops)]
+#-------------------------------------------------------
+# removing all kinds of daramad from outcome variables
+# removing daramad from dindex
+dindex2 <- names(urban)[dindex][which(names(urban)[dindex]!="daramad")] 
+dindex2
+treeurban <- urban[ ,!(names(urban)) %in% names(urban)[dindex2]]
+
+#head(treeurban$daramad)
+# removing all kinds of hazineh from outcome variables
+treeurbanf <- treeurban[ ,!(names(urban)) %in% hvector]
+#head(treeurbanf$daramad)
