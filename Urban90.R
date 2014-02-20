@@ -67,3 +67,6 @@ treeurban <- urban[ ,!(names(urban)) %in% names(urban)[dindex2]]
 # removing all kinds of hazineh from outcome variables
 treeurbanf <- treeurban[ ,!(names(urban)) %in% hvector]
 #head(treeurbanf$daramad)
+library(party)
+myFormula <- daramad ~ .
+urban_ctree <- ctree(myFormula, data=urban)
