@@ -4,9 +4,9 @@
 options(java.parameters = "-Xmx32g")
 library(xlsx)
 #--------------------------------------------------------------
-# loading data
+# loading data - 100 rows
 if(!(exists("urban"))){
-  urban <- read.xlsx2("SumU90.xlsx",sheetIndex=1)
+  urban <- read.xlsx2("SumU90.xlsx",sheetIndex=1,endrow=100)
 }
 #urban <- read.xlsx2("SumU90.xlsx",sheetIndex=1)
 
@@ -71,10 +71,31 @@ urban1 <- urban[ ,!(names(urban)) %in% names(urban)[dindex2]]
 urban2 <- urban1[ ,!(names(urban)) %in% hvector]
 #head(treeurbanf$daramad)
 #----------------------------------------------------------
+#exploratory data analysis
+plot(daramad ~ a01, data=urban2,varwidth = TRUE,col = rainbow(2)) #probably 1-man 2-woman
+plot(daramad ~ a02, data=urban2,varwidth = TRUE,range = 0,col = rainbow(20))
+plot(daramad ~ a03, data=urban2,varwidth = TRUE,col = rainbow(2)) #?
+plot(daramad ~ a04, data=urban2,varwidth = TRUE,col = rainbow(3)) #?
+plot(daramad ~ a05, data=urban2,varwidth = TRUE,col = rainbow(3)) #?
+plot(daramad ~ a06, data=urban2,varwidth = TRUE,col = rainbow(30)) #?
+plot(daramad ~ a07, data=urban2,varwidth = TRUE,col = rainbow(4)) #?
+plot(daramad ~ a08, data=urban2,varwidth = TRUE,col = rainbow(30)) #?
+plot(daramad ~ a09, data=urban2,varwidth = TRUE,col = rainbow(30)) #?
+plot(daramad ~ a10, data=urban2,varwidth = TRUE,col = rainbow(30)) #?
+plot(daramad ~ a10new, data=urban2,varwidth = TRUE,col = rainbow(30)) #?
+
+
+
+
+
+
+
+
+
 #Prototyping data modeling
 
-library(party)
-myformula <- daramad ~ .
+#library(party)
+#myformula <- daramad ~ .
 #urban_ctree <- ctree(myFormula, data=urban)
 #urbanlm <- lm(myformula,data=treeurbanf)
 #help(memory.size)
