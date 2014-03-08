@@ -5,7 +5,10 @@ options(java.parameters = "-Xmx32g")
 library(xlsx)
 #--------------------------------------------------------------
 # loading data
-urban <- read.xlsx2("SumU90.xlsx",sheetIndex=1)
+if(!(exists("urban"))){
+  urban <- read.xlsx2("SumU90.xlsx",sheetIndex=1)
+}
+#urban <- read.xlsx2("SumU90.xlsx",sheetIndex=1)
 
 #Try to increase java Heap size(sufficient), by using
 #options(java.parameters = "-Xmx32g")
@@ -61,12 +64,17 @@ summary(urban$daramad)
 # removing daramad from dindex
 dindex2 <- names(urban)[dindex][which(names(urban)[dindex]!="daramad")] 
 dindex2
-treeurban <- urban[ ,!(names(urban)) %in% names(urban)[dindex2]]
+urban1 <- urban[ ,!(names(urban)) %in% names(urban)[dindex2]]
 
 #head(treeurban$daramad)
 # removing all kinds of hazineh from outcome variables
-treeurbanf <- treeurban[ ,!(names(urban)) %in% hvector]
+urban2 <- urban1[ ,!(names(urban)) %in% hvector]
 #head(treeurbanf$daramad)
+#----------------------------------------------------------
+#Prototyping data modeling
+
 library(party)
-myFormula <- daramad ~ .
-urban_ctree <- ctree(myFormula, data=urban)
+myformula <- daramad ~ .
+#urban_ctree <- ctree(myFormula, data=urban)
+#urbanlm <- lm(myformula,data=treeurbanf)
+#help(memory.size)
