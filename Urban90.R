@@ -5,6 +5,7 @@ options(java.parameters = "-Xmx32g")
 library(xlsx)
 library(sqldf)
 library(e1071)
+library(Hmisc)
 
 #--------------------------------------------------------------
 # loading data - 100 rows
@@ -102,11 +103,8 @@ summary(urbantest$a01)
 unique(urbantest$a01)
 
 #------------------------
-
-
-
-> classifier<-naiveBayes(iris[,1:4], iris[,5]) 
-
+urbantest$daramad<- cut2(urbantest$daramad,g=4)
+table(urbantest$daramad,useNA="ifany")
 
 naivedfminusdaramad <- urbantest[ , !names(urbantest) %in% c("daramad")]
 naivedfdaramad      <- urbantest[ , names(urbantest) %in% c("daramad")]
@@ -115,17 +113,30 @@ dim(naivedfminusdaramad)
 dim(naivedfdaramad)
 
 
-head(naivedfdaramad,20)
-
 classifier <- naiveBayes(naivedfminusdaramad,naivedfdaramad)
-
 table(predict(classifier, naivedfminusdaramad), naivedfdaramad)
-> table(predict(classifier, iris[,-5]), iris[,5])
-dim(iris[,-5])
-dim(iris[,5])
+# shows that we can predict daramad from features in dataframe quite well
 
 
-#------------------------
+# second way of writing
+classifier2 <- naiveBayes(daramad~., data=urbantest)
+predict(classifier2,urbantest)
+
+# #---------------------------
+# class(urbantest[ , !names(urbantest) %in% c("daramad")]) #data.frame
+# class(urbantest[ , names(urbantest) %in% c("daramad")])  #numeric
+# #--------------------------------
+# dim(urbantest[ , !names(urbantest) %in% c("daramad")]) #99 112
+# dim(urbantest[ , names(urbantest) %in% c("daramad")])
+# #----------------------------------
+# length(urbantest[ , !names(urbantest) %in% c("daramad")]) # 112
+# length(urbantest[ , names(urbantest) %in% c("daramad")]) #99
+# #------------------------
+
+
+
+class(urbantest$daramad)
+
 # for  (i in head(names(urbantest))) {
 # # urbantest<-  merge(x = urbantest, y = joinsheet, by = "CustomerId", all = TRUE)
 #   sqldf('update urbantest 
@@ -138,6 +149,7 @@ dim(iris[,5])
 #   
 #   
 # }
+
     
 
 
