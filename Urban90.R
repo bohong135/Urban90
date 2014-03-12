@@ -4,10 +4,12 @@
 options(java.parameters = "-Xmx32g")
 library(xlsx)
 library(sqldf)
+library(e1071)
+
 #--------------------------------------------------------------
 # loading data - 100 rows
 if(!(exists("urban"))){
-  urban <- read.xlsx2("SumU90.xlsx",sheetIndex=1,endrow=100)
+  urban <- read.xlsx2("SumU90.xlsx",sheetIndex=1,endRow=100)
 }
 # loading data for join
 if(!(exists("joinsheet"))){
@@ -98,6 +100,30 @@ levels(urbantest$a01)[levels(urbantest$a01)== "2" ] <- "woman"
 
 summary(urbantest$a01)
 unique(urbantest$a01)
+
+#------------------------
+
+
+
+> classifier<-naiveBayes(iris[,1:4], iris[,5]) 
+
+
+naivedfminusdaramad <- urbantest[ , !names(urbantest) %in% c("daramad")]
+naivedfdaramad      <- urbantest[ , names(urbantest) %in% c("daramad")]
+
+dim(naivedfminusdaramad)
+dim(naivedfdaramad)
+
+
+head(naivedfdaramad,20)
+
+classifier <- naiveBayes(naivedfminusdaramad,naivedfdaramad)
+
+table(predict(classifier, naivedfminusdaramad), naivedfdaramad)
+> table(predict(classifier, iris[,-5]), iris[,5])
+dim(iris[,-5])
+dim(iris[,5])
+
 
 #------------------------
 # for  (i in head(names(urbantest))) {
