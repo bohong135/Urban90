@@ -3,9 +3,10 @@
 #Try to increase java Heap size(sufficient), by using
 options(java.parameters = "-Xmx32g")
 library(xlsx)
-library(sqldf)
-library(e1071)
-library(Hmisc)
+library(sqldf) 
+library(e1071) # function naiveBayes
+library(Hmisc) # function cut2
+library(randomForest) #function randomForest
 
 #--------------------------------------------------------------
 # loading data - 100 rows
@@ -121,6 +122,30 @@ table(predict(classifier, naivedfminusdaramad), naivedfdaramad)
 # second way of writing
 classifier2 <- naiveBayes(daramad~., data=urbantest)
 predict(classifier2,urbantest)
+
+#preparing for Random Forest temporarily turning datatype to
+#urbantest$daramad<- cut2(urbantest$daramad,g=4)
+
+random.forest.vector <- c("address","a02","a05","a08","a09","block","b04")
+
+for (j in random.forest.vector){
+  random.forest.index<- which(names(urban)==j)
+  urbantest[ ,random.forest.index] <- as.numeric(urbantest[ ,random.forest.index])
+  #urbantest[ ,random.forest.index] <-cut2(urbantest[ ,random.forest.index],g=4)
+}
+
+
+
+
+#Random Forest
+set.seed(1)
+urbantest.rf <- randomForest(daramad ~ ., data=urbantest, ntree=1000, keep.forest=FALSE,importance=TRUE)
+varImpPlot(urbantest.rf)
+
+
+
+
+
 
 # #---------------------------
 # class(urbantest[ , !names(urbantest) %in% c("daramad")]) #data.frame
