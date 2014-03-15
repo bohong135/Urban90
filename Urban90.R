@@ -1,8 +1,8 @@
 # loading libraries
 
-#Try to increase java Heap size(sufficient), by using
+#increase java Heap size(sufficient)
 options(java.parameters = "-Xmx32g")
-library(xlsx)
+library(xlsx) #function read.xlsx2
 library(sqldf) 
 library(e1071) # function naiveBayes
 library(Hmisc) # function cut2
@@ -11,7 +11,7 @@ library(randomForest) #function randomForest
 #--------------------------------------------------------------
 # loading data - 100 rows
 if(!(exists("urban"))){
-  urban <- read.xlsx2("SumU90.xlsx",sheetIndex=1,endRow=100)
+  urban <- read.xlsx2("SumU90.xlsx",sheetIndex=1,endRow=100,na.strings = ".")
 }
 # loading data for join
 if(!(exists("joinsheet"))){
@@ -125,27 +125,103 @@ predict(classifier2,urbantest)
 
 #preparing for Random Forest temporarily turning datatype to
 #urbantest$daramad<- cut2(urbantest$daramad,g=4)
-
-random.forest.vector <- c("address","a02","a05","a08","a09","block","b04")
+#variables with more than 25 levels are selected to remove the error caused by random forest
+random.forest.vector <- c("address","a02","a05","a08","a09","block","b04","d02")
 
 for (j in random.forest.vector){
+  #j<- 2
   random.forest.index<- which(names(urban)==j)
-  urbantest[ ,random.forest.index] <- as.numeric(urbantest[ ,random.forest.index])
-  #urbantest[ ,random.forest.index] <-cut2(urbantest[ ,random.forest.index],g=4)
+  urbantest[ ,random.forest.index] <- as.numeric(as.character(urbantest[ ,random.forest.index]))
+  urbantest[ ,random.forest.index] <- cut2(urbantest[ ,random.forest.index],g=4)
 }
+j
+
+j <- "block"
+random.forest.index<- which(names(urban)==j)
+random.forest.index
+
+j <- "b02"
+random.forest.index<- which(names(urban)==j)
+random.forest.index
 
 
+urban2[ ,72] <- as.numeric(urban2[ ,72])
 
+timeRanges <-cut2(urban2[ ,72],g=4)
+table(timeRanges,useNA="ifany")
 
+summary(urbantest$b04)
+
+timeRanges
+
+head((urban2[ ,72]),20)
+
+summary(urbantest$address)
+unique(urbantest$address)
+unique(urban1$address)
+unique(urban2$address)
+
+unique(urban$address)
+summary(urban$address)
+
+sum(is.na(urban$address)) #no NA
+sum(is.na(urbantest$a02)) #no NA
+
+# block and b04 remained
+unique(urbantest$b04)
+summary(urbantest$b04)
+class(urbantest$b04) #factor
+
+unique(urbantest$block)
+summary(urbantest$block)
+class(urbantest$block) #factor
+
+summary(urbantest$b04)
+
+#test
+class(urbantest$address)
+class(urbantest$a02)
+
+urbantest$b04 <- as.numeric(as.character(urbantest$b04))
+urbantest$block <- as.numeric(as.character(urbantest$block))
+urbantest$b04 <-cut2(urbantest$b04,g=4)
+urbantest$block <-cut2(urbantest$block,g=4)
+urbantest$d02 <- as.numeric(as.character(urbantest$b04))
+
+summary(urbantest$b04)
 #Random Forest
 set.seed(1)
-urbantest.rf <- randomForest(daramad ~ ., data=urbantest, ntree=1000, keep.forest=FALSE,importance=TRUE)
+urbantest.rf <- randomForest(daramad ~ ., data=urbantest, 
+                             ntree=1000, keep.forest=FALSE,importance=TRUE,na.action = na.omit)
 varImpPlot(urbantest.rf)
 
 
+summary(urbantest$b24)
+unique(urbantest$b24)
 
 
+summary(urbantest$b25)
+unique(urbantest$b25)
 
+
+summary(urbantest$b31)
+unique(urbantest$b31)
+
+summary(urbantest$b42)
+unique(urbantest$b42)
+nlevels(urbantest$b25)
+
+
+bcolumn.pattern <- '^b[0123456789][0123456789]'
+bcolumn.index = grep(bcolumn.pattern, names(urbantest))
+bcolumn.index
+length(unique(urbantest$b31))
+
+head(urbantest[,bcolumn.index])
+
+urbantest[ which (names(urbantest) %in% bcolumn.index) ]
+
+dindex2 <- names(urban)[dindex][which(names(urban)[dindex]!="daramad")] 
 
 # #---------------------------
 # class(urbantest[ , !names(urbantest) %in% c("daramad")]) #data.frame
@@ -167,6 +243,11 @@ class(urbantest$daramad)
 #   sqldf('update urbantest 
 #         set urbantest$i=
 #          from urbantest ,joinsheet
+
+
+
+
+
 # 
 # 
 #         where i==field and 
