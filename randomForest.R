@@ -10,7 +10,7 @@ mtcars.rf <- randomForest(mpg ~ ., data=mtcars, ntree=1000, keep.forest=FALSE,
                           importance=TRUE)
 varImpPlot(mtcars.rf)
 
+#view the source code for randomForest
 
-which(sapply(x, function(y) nlevels(daramad) > 32)) 
-
-for 
+randomForest
+getAnywhere('randomForest.default')

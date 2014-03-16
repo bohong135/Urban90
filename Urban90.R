@@ -44,14 +44,15 @@ for (i in dindex) {
 
 #class(urban$daramad03)
 #--------------------------------
-# adding hazine to numeric
-hvector <- c("nhazineh","ghazineh","vkhorak","vgheirkhorak")
+# converting hazine to numeric
+hazineh.vector <- c("nhazineh","ghazineh","vkhorak","vgheirehkhorak")
 for (j in hvector){
-  hindex<- which(names(urban)==j)
-  urban[ ,hindex] <-as.numeric(urban[ ,hindex])
+  hazineh.index <- which(names(urbantest) %in% hazineh.vector)
+  urbantest[ ,hazineh.index] <- as.numeric(urbantest[ ,hazineh.index])
 }
 
-#class(urban$nhazineh)
+class(urbantest$vgheirehkhorak)
+
 #---------------------------------
 # Data Exploration
 summary(urban$daramad)
@@ -189,10 +190,20 @@ urbantest$block <-cut2(urbantest$block,g=4)
 urbantest$d02 <- as.numeric(as.character(urbantest$b04))
 
 summary(urbantest$b04)
+
+summary(urbantest$d02)
+unique(urbantest$d02)
+
+urbantest$d02
+
+urbantest$address34 <- as.character(urbantest$address34)
+urbantest$adr85_19 <- as.character(urbantest$adr85_19)
+
+#--------------------------------------------------------------------------------------------
 #Random Forest
 set.seed(1)
 urbantest.rf <- randomForest(daramad ~ ., data=urbantest, 
-                             ntree=1000, keep.forest=FALSE,importance=TRUE,na.action = na.omit)
+                             ntree=500, keep.forest=FALSE,importance=TRUE,na.action = na.omit)
 varImpPlot(urbantest.rf)
 
 
