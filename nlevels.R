@@ -23,8 +23,9 @@ if (   is.factor (urbantest[ ,which(names(urbantest) == j)]
 
          
 
-# removing d02 from urbantest 
-var.out <- names(urbantest)[names(urbantest) %in% c("d02")]
+# removing d02 from urbantest totally NULL
+# removing b02 from urbantest totally NULL
+var.out <- names(urbantest)[names(urbantest) %in% c("d02","b02","b08","b11","b13","b24")]
 var.out
 urbantest <- urbantest[ , !names(urbantest) %in% var.out] 
 #------------------------------------------------------------

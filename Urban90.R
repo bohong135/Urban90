@@ -202,8 +202,10 @@ urbantest$adr85_19 <- as.character(urbantest$adr85_19)
 #--------------------------------------------------------------------------------------------
 #Random Forest
 set.seed(1)
-urbantest.rf <- randomForest(daramad ~ ., data=urbantest, 
-                             ntree=500, keep.forest=FALSE,importance=TRUE,na.action = na.omit)
+OK <- complete.cases(urbantest)
+completeurbantest <- urbantest [OK,]
+urbantest.rf <- randomForest(daramad ~ ., data = completeurbantest, 
+                ntree=500, keep.forest=FALSE,importance=TRUE,na.action = na.omit)
 varImpPlot(urbantest.rf)
 
 
@@ -223,14 +225,6 @@ unique(urbantest$b42)
 nlevels(urbantest$b25)
 
 
-bcolumn.pattern <- '^b[0123456789][0123456789]'
-bcolumn.index = grep(bcolumn.pattern, names(urbantest))
-bcolumn.index
-length(unique(urbantest$b31))
-
-head(urbantest[,bcolumn.index])
-
-urbantest[ which (names(urbantest) %in% bcolumn.index) ]
 
 dindex2 <- names(urban)[dindex][which(names(urban)[dindex]!="daramad")] 
 
