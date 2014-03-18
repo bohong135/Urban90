@@ -1,55 +1,50 @@
 # part of preparing for random forest
 # finding  categorical predictors with more than 32 categories to remove the error
 #Can not handle categorical predictors with more than 32 categories.
-candidates32 <- c()
+candidates.32.index <- c()
 
-for (j in names(urbantest))    
- {if (is.factor (urbantest[ ,which(names(urbantest) == j)] &   nlevels(urbantest[ ,which(names(urbantest) == j)] ) > 32 ) print(j) }
-    
-                          
+
                               
 
+summary(urban$b13)   
+unique(urban$b13)  
+sum(unique(urban$b11) , na.rm=TRUE)
+
+is.nan(sum(unique(urban$b01)  ))
 
 
-#finding factors with no data
 
-candidates1 <- c()
-for (j in names(urbantest))   {
-if (   is.factor (urbantest[ ,which(names(urbantest) == j)]
-     &
-       nlevels(urbantest[ ,which(names(urbantest) == j)]) == 1 )
-{candidates1 <- append(candidates1,j)}}
+sum(is.nan(unique(urban[ ,j])))
+ncol(urban)
 
 
+#finding columns with no data
+
+candidates.nodata.index <- c()
+for (j in (1 : ncol(urban)))   {
+  if (   sum(unique(urban[ ,j]) , na.rm=TRUE) == 0    )
+    candidates.nodata.index <- append(candidates.nodata.index,j)
+                               }
+
+urban <- urban[ , -candidates.nodata.index] 
+#candidates.nodata.index
+#names(urban[ ,candidates.nodata.index])
+
+summary(urban$b24)   
+unique (urban$b24)
          
 
-# removing d02 from urbantest totally NULL
-# removing b02 from urbantest totally NULL
-var.out <- names(urbantest)[names(urbantest) %in% c("d02","b02","b08","b11","b13","b24")]
-var.out
-urbantest <- urbantest[ , !names(urbantest) %in% var.out] 
+#urbantest <- urbantest[ , !names(urbantest) %in% var.out] 
 #------------------------------------------------------------
-#finding factors with 1 unique value
-candidates <- c()
-class(candidates)
-n=0
-j="b31"
-for (j in names(urbantest))   {
-  
-  if (   is.factor (urbantest[ ,which(names(urbantest) == j)])
-                    &
-         length(unique(urbantest[ ,which(names(urbantest) == j)])) == 1 
-                    
-  )
- 
-  {candidates <- append(candidates,j)}
-
+#finding columns with 1 unique value -can be excluded from dataset
+candidates.oneunique.index <- c()
+for (k in (1 : ncol(urban)))   {
+  if (   sum(unique(urban[ ,k]) , na.rm=TRUE) == 0    )
+    candidates.oneunique.index <- append(candidates.oneunique.index,j)
 }
 
-urbantest <- urbantest[ , !names(urbantest) %in% candidates] 
 
-#--------------------------------------------------------------
-unique(urbantest$b35)
-length(unique(urbantest$b35))# ==1
+unique(urban[ ,2])
+unique(urban[ ,3])
+unique(urban[ ,4])
 
-length(unique(urbantest$address))# ==1

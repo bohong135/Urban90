@@ -9,9 +9,10 @@ library(Hmisc) # function cut2
 library(randomForest) #function randomForest
 
 #--------------------------------------------------------------
-# loading data - 100 rows
+# loading data - 100 rows  na.strings %in% ( "" )
 if(!(exists("urban"))){
-  urban <- read.xlsx2("SumU90.xlsx",sheetIndex=1,endRow=100,na.strings = ".")
+  urban <- read.xlsx2("SumU90.xlsx",sheetIndex=1,endRow=100,header=TRUE,
+         stringsAsFactors = FALSE,colClasses=rep("numeric",116))
 }
 # loading data for join
 if(!(exists("joinsheet"))){

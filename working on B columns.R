@@ -1,37 +1,35 @@
-unique(urbantest$b27)
-summary(urbantest$b27)
-
-# B03 number of rooms - converting to numeric
-urbantest$b03 <- as.numeric(urbantest$b03)
-class(urbantest$b03)#OK
+#unique(urbantest$b12)
+#summary(urbantest$b12)
 
 
 
 bcolumn.pattern <- '^b[0123456789][0123456789]'
-bcolumn.index = grep(bcolumn.pattern, names(urbantest))
-bcolumn.index
+bcolumn.index = grep(bcolumn.pattern, names(urban))
+#bcolumn.index
+#names(urban[ ,bcolumn.index])
+#-----------------------------------------------------------------------------------------
+# converting NULL values to zero because b columns are binary variables
+bcolumn.nrow <- dim(urban)[1]
 
-
-urbantest[,which(names(urbantest)=="b10")]
-
-is.null(urbantest[,45])
-
-for (k in names(urbantest[,bcolumn.index]))
-{
-  if (is.na(urbantest)  or is.null())
-  {
-    
-  }
+for (k in bcolumn.index){
+  for (l in( 1 :bcolumn.nrow))
+#k="b34"
+#l=1
+    if (    is.nan(urban [l, ][ ,k])    )
+         
+         {urban [l, ][ ,k] <- 0 }
 }
+                                            
+#--------------------------------------------------------------------------------
+# 
+# summary(urbantest$b10)
+# unique(urbantest$b10)
+# 
+# sum(is.na(urbantest$b12))
+# sum(is.null(urbantest$b12))
+# sum(is.nan(urbantest$b12))
+#--------------------------------------------------------------------------------
 
-summary(urbantest$b10)
-unique(urbantest$b10)
+(unique(urban$b16) == c(0,1)) | (unique(urban$b16) == c(1,0))
+length(unique(urban$b16)) ==2
 
-sum(is.na(urbantest$b10))
-sum(is.null(urbantest$b10))
-sum(is.nan(urbantest$b10))
-nrow(urbantest[ ,! which (urbantest$b10 ==1)])
-
-
-
-urbantest[ ,which (names(urbantest) %in% bcolumn.index) ]
