@@ -138,14 +138,6 @@ for (j in random.forest.vector){
 }
 j
 
-j <- "block"
-random.forest.index<- which(names(urban)==j)
-random.forest.index
-
-j <- "b02"
-random.forest.index<- which(names(urban)==j)
-random.forest.index
-
 
 urban2[ ,72] <- as.numeric(urban2[ ,72])
 
@@ -158,27 +150,8 @@ timeRanges
 
 head((urban2[ ,72]),20)
 
-summary(urbantest$address)
-unique(urbantest$address)
-unique(urban1$address)
-unique(urban2$address)
 
-unique(urban$address)
-summary(urban$address)
 
-sum(is.na(urban$address)) #no NA
-sum(is.na(urbantest$a02)) #no NA
-
-# block and b04 remained
-unique(urbantest$b04)
-summary(urbantest$b04)
-class(urbantest$b04) #factor
-
-unique(urbantest$block)
-summary(urbantest$block)
-class(urbantest$block) #factor
-
-summary(urbantest$b04)
 
 #test
 class(urbantest$address)
@@ -203,27 +176,17 @@ urbantest$adr85_19 <- as.character(urbantest$adr85_19)
 #--------------------------------------------------------------------------------------------
 #Random Forest
 set.seed(1)
-OK <- complete.cases(urbantest)
-completeurbantest <- urbantest [OK,]
-urbantest.rf <- randomForest(daramad ~ ., data = completeurbantest, 
+OK <- complete.cases(urban)
+completeurban <- urban [OK,]
+head(completeurban)
+
+urban.random.forest <- randomForest(daramad ~ ., data = urban, 
                 ntree=500, keep.forest=FALSE,importance=TRUE,na.action = na.omit)
-varImpPlot(urbantest.rf)
+varImpPlot(urban.random.forest)
 
 
-summary(urbantest$b24)
-unique(urbantest$b24)
-
-
-summary(urbantest$b25)
-unique(urbantest$b25)
-
-
-summary(urbantest$b31)
-unique(urbantest$b31)
-
-summary(urbantest$b42)
-unique(urbantest$b42)
-nlevels(urbantest$b25)
+summary(urbantest$)
+unique(urban$daramad)
 
 
 

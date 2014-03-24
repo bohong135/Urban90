@@ -21,6 +21,30 @@ for (k in bcolumn.index){
 }
                                             
 #--------------------------------------------------------------------------------
+# converting almost all b variables to zero-one
+b.zero.one.vector <- c("b25","b26","b27","b28","b29","b30","b31","b32","b33","b34","b38","b39","b40")
+length(b.zero.one.vector)
+b.zero.one.index <- which(names(urban) %in% b.zero.one.vector)
+#b.zero.one.index 
+for (k in b.zero.one.index){
+  for (l in( 1 :bcolumn.nrow))
+    #k="b27"
+    #l=1
+    if (!(    (urban [l, ][ ,k]) == 0    ))
+      
+    {urban [l, ][ ,k] <- 1 }
+}
+#-----------------------------------------------------------------------------------
+#converting b columns to factor
+
+for (k in bcolumn.index){
+
+  urban[ ,bcolumn.index] <- as.factor((urban[ ,bcolumn.index])
+
+}
+
+
+
 # 
 # summary(urbantest$b10)
 # unique(urbantest$b10)
@@ -29,7 +53,4 @@ for (k in bcolumn.index){
 # sum(is.null(urbantest$b12))
 # sum(is.nan(urbantest$b12))
 #--------------------------------------------------------------------------------
-
-(unique(urban$b16) == c(0,1)) | (unique(urban$b16) == c(1,0))
-length(unique(urban$b16)) ==2
 
