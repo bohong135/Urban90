@@ -1,10 +1,15 @@
 # part of preparing for random forest
 # finding  categorical predictors with more than 32 categories to remove the error
 #Can not handle categorical predictors with more than 32 categories.
-candidates.32.index <- c()
-
-
+candidates32.index <- c()
+for (m in (1 : ncol(urban)))   {
+  if (   is.factor(urban[ ,m])  & nlevels(as.factor(urban[ ,m])) >32    )
+    candidates32.index <- append(candidates32.index,j)
+}
+names(   urban[ ,unique(candidates32.index)]   )
                               
+candidates32.index
+unique(candidates32.index)
 
 summary(urban$b13)   
 unique(urban$b13)  
@@ -22,17 +27,18 @@ ncol(urban)
 
 candidates.nodata.index <- c()
 for (j in (1 : ncol(urban)))   {
-  if (   sum(unique(urban[ ,j]) , na.rm=TRUE) == 0    )
-    candidates.nodata.index <- append(candidates.nodata.index,j)
+  
+ 
+  if (    is.numeric(urban[ ,j])  &  length(unique(as.numeric(urban[ ,j]))) == 1      )
+    {candidates.nodata.index <- append(candidates.nodata.index,j)}
                                }
 
+
+names(urban[ ,candidates.nodata.index])
 urban <- urban[ , -candidates.nodata.index] 
 #candidates.nodata.index
 #names(urban[ ,candidates.nodata.index])
 
-summary(urban$b24)   
-unique (urban$b24)
-         
 
 #urbantest <- urbantest[ , !names(urbantest) %in% var.out] 
 #------------------------------------------------------------

@@ -36,14 +36,22 @@ for (k in b.zero.one.index){
 }
 #-----------------------------------------------------------------------------------
 #converting b columns to factor
+bcolumn.index
 
+urbantest <- urban
 for (k in bcolumn.index){
 
-  urban[ ,bcolumn.index] <- as.factor((urban[ ,bcolumn.index])
+  #k=48
+  urban[ ,k] <- as.factor(urban[ ,k])
 
 }
 
+#converting b04 to numeric
+b04.index <- which(names (urban)=="b04")
+urban [ ,b04.index] <- as.numeric(urban [ ,b04.index])
 
+class(urban$b04)
+str(urban)
 
 # 
 # summary(urbantest$b10)
