@@ -56,18 +56,18 @@ unique(urbantest$a01)
 
 #--------------------------------------------------------------------------------------------
 #Random Forest
-set.seed(1)
-OK <- complete.cases(urban)
-completeurban <- urban [OK,]
-head(completeurban)
-response.var <- urban[ , which(names(urban)=="daramad")]
-x.
+set.seed(2)
+#OK <- complete.cases(urban)
+#completeurban <- urban [OK,]
+#head(completeurban)
+
 
 #options(stringsAsFactors = FALSE)
 urban.random.forest <- randomForest(daramad ~ ., data = urban, 
-                ntree=500, keep.forest=FALSE,importance=TRUE,na.action = na.omit)
+                ntree=2000, keep.forest=FALSE,importance=TRUE,na.action = na.omit)
 
 length(unique(urban$daramad))# ==58
+
 varImpPlot(urban.random.forest)
 class(urban)
 

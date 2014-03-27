@@ -3,26 +3,21 @@
 #Can not handle categorical predictors with more than 32 categories.
 candidates32.index <- c()
 for (m in (1 : ncol(urban)))   {
-  if (   is.factor(urban[ ,m])  & nlevels(as.factor(urban[ ,m])) >32    )
-    candidates32.index <- append(candidates32.index,j)
+  
+  #m=3
+  if (   is.factor(urban[ ,m])  & nlevels(urban[ ,m]) > 32    )
+    {   candidates32.index <- append(candidates32.index,m) ;
+        urban[ ,m]<- as.character(urban[ ,m]) }
 }
-names(   urban[ ,unique(candidates32.index)]   )
-                              
-candidates32.index
-unique(candidates32.index)
-
-summary(urban$b13)   
-unique(urban$b13)  
-sum(unique(urban$b11) , na.rm=TRUE)
-
-is.nan(sum(unique(urban$b01)  ))
 
 
+names(urban[ ,candidates32.index])
 
-sum(is.nan(unique(urban[ ,j])))
-ncol(urban)
+urban[ ,14]<- as.character(urban[ ,14]) 
+summary(urban$a09)
+unique(urban$a09)
 
-
+#------------------------------------------------------------------------------------------
 #finding columns with no data
 
 candidates.nodata.index <- c()

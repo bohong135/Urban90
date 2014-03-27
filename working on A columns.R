@@ -33,3 +33,18 @@ for (k in acolumn.index){
 }
 
 str(urban)
+#-----------------------------------------------------------------
+#test
+summary(urbantest$a02)
+unique(urbantest$a02)
+
+summary(urbantest$a08)
+unique(urbantest$a08)
+
+summary(urban$a09)
+unique(urban$a09)
+
+
+urban$a08 <- urbantest$a08
+urban$a09 <- urbantest$a09
+urban$a02 <- urbantest$a02

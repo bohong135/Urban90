@@ -10,3 +10,4 @@ plot(daramad ~ a08, data=urban2,varwidth = TRUE,col = rainbow(30)) #?
 plot(daramad ~ a09, data=urban2,varwidth = TRUE,col = rainbow(30)) #?
 plot(daramad ~ a10, data=urban2,varwidth = TRUE,col = rainbow(30)) #?
 plot(daramad ~ a10new, data=urban2,varwidth = TRUE,col = rainbow(30)) #?
+
