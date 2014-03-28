@@ -31,4 +31,3 @@ is.finite(c(1,NA,-Inf,NaN))
 is.infinite(c(1,NA,-Inf,NaN))
 
 
-write.xlsx2(urban, "clean.xlsx",sheetName="Sheet1",col.names=TRUE, row.names=TRUE)

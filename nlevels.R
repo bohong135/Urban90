@@ -10,42 +10,45 @@ for (m in (1 : ncol(urban)))   {
         urban[ ,m]<- as.character(urban[ ,m]) }
 }
 
+#str(urban)
 
-names(urban[ ,candidates32.index])
+#names(urban[ ,candidates32.index])
 
-urban[ ,14]<- as.character(urban[ ,14]) 
-summary(urban$a09)
-unique(urban$a09)
+#urban[ ,14]<- as.character(urban[ ,14]) 
+#summary(urban$a09)
+#unique(urban$a09)
 
 #------------------------------------------------------------------------------------------
 #finding columns with no data
+# 
+ candidatesnodata.index <- c()
+ for (j in (1 : ncol(urban)))   {
+   
 
-candidates.nodata.index <- c()
-for (j in (1 : ncol(urban)))   {
-  
- 
-  if (    is.numeric(urban[ ,j])  &  length(unique(as.numeric(urban[ ,j]))) == 1      )
-    {candidates.nodata.index <- append(candidates.nodata.index,j)}
-                               }
-
-
-names(urban[ ,candidates.nodata.index])
-urban <- urban[ , -candidates.nodata.index] 
-#candidates.nodata.index
+   if (    is.numeric(urban[ ,j])  &  length(unique(as.numeric(urban[ ,j]))) == 1      )
+     {candidatesnodata.index <- append(candidatesnodata.index,j);
+                        #urban <- urban[ , - j] }
+                                }}
+# 
+# 
+urban <- urban[ , - candidatesnodata.index]
+# #names(urban[ ,candidates.nodata.index])
+# urban <- urban[ , - (candidates.nodata.index)] 
+# #candidates.nodata.index
 #names(urban[ ,candidates.nodata.index])
 
 
 #urbantest <- urbantest[ , !names(urbantest) %in% var.out] 
 #------------------------------------------------------------
 #finding columns with 1 unique value -can be excluded from dataset
-candidates.oneunique.index <- c()
-for (k in (1 : ncol(urban)))   {
-  if (   sum(unique(urban[ ,k]) , na.rm=TRUE) == 0    )
-    candidates.oneunique.index <- append(candidates.oneunique.index,j)
-}
+# candidatesoneunique.index <- c()
+# for (k in (1 : ncol(urban)))   {
+#   if (   sum(unique(urban[ ,k]) , na.rm=TRUE) == 0    )
+#     candidatesoneunique.index <- append(candidatesoneunique.index,j)
+# }
 
 
-unique(urban[ ,2])
-unique(urban[ ,3])
-unique(urban[ ,4])
+#unique(urban[ ,2])
+#unique(urban[ ,3])
+#unique(urban[ ,4])
 

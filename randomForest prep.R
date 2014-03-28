@@ -25,9 +25,3 @@ timeRanges
 head((urban2[ ,72]),20)
 
 #---------------------------------------------------------------------------------------------
-#test
-y <- NULL
-addclass <- is.null(y)
-classRF <- addclass || is.factor(y)
-if (!classRF && length(unique(y)) <= 5) {
-  warning("The response has five or fewer unique values.  Are you sure you want to do regression?")}
