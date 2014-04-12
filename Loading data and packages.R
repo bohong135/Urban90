@@ -11,7 +11,7 @@ library(randomForest) #function randomForest
 #--------------------------------------------------------------
 # loading data - 100 rows  na.strings %in% ( "" )
 if(!(exists("urban"))){
-  urban <- read.xlsx2("SumU90.xlsx",sheetIndex=1,header=TRUE,
+  urban <- read.xlsx2("SumU90.xlsx",sheetIndex=1,endRow=101,header=TRUE,
          stringsAsFactors = FALSE,colClasses=rep("numeric",116))
 }
 

@@ -15,19 +15,30 @@
 #randomForest
 #getAnywhere('randomForest.default')
 #Random Forest
-set.seed(1)
+
 #OK <- complete.cases(urban)
 #completeurban <- urban [OK,]
 #head(completeurban)
 
 
 #options(stringsAsFactors = FALSE)
-urban.random.forest <- randomForest(daramad ~ ., data = urban, 
+set.seed(1)
+urban.randomforest.daramad <- randomForest(daramad ~ ., data = urban, 
             ntree=500, keep.forest=FALSE,importance=TRUE,na.action = na.omit)
 
 #length(unique(urban$daramad))# ==58
 
-varImpPlot(urban.random.forest)
+varImpPlot(urban.randomforest.daramad)
+#----------------------------------------------------------------
+#another formula
+set.seed(2)
+urban.randomforest.c11 <- randomForest(c11 ~ ., data = urban, 
+            ntree=500, keep.forest=FALSE,importance=TRUE,na.action = na.omit)
+varImpPlot(urban.randomforest.c11)
+
+
+
+
 #class(urban)
 
 #summary(urbantest$)

@@ -19,11 +19,11 @@ urban[,bcolumn.index] <- lapply(urban[,bcolumn.index], function(x) {x[is.nan(x)]
 
 #--------------------------------------------------------------------------------
 # converting almost all b variables to zero-one
-# b.zero.one.vector <- c("b25","b26","b27","b28","b29","b30","b31","b32","b33","b34","b38","b39","b40")
-# length(b.zero.one.vector)
-# b.zero.one.index <- which(names(urban) %in% b.zero.one.vector)
-# #b.zero.one.index 
-# for (k in b.zero.one.index){
+bzeroone.vector <- c("b25","b26","b27","b28","b29","b30","b31","b32","b33","b34","b38","b39","b40")
+# length(bzeroone.vector)
+bzeroone.index <- which(names(urban) %in% bzeroone.vector)
+# #bzeroone.index 
+# for (k in bzeroone.index){
 #   for (l in( 1 :bcolumn.nrow))
 #     #k="b27"
 #     #l=1
@@ -31,6 +31,8 @@ urban[,bcolumn.index] <- lapply(urban[,bcolumn.index], function(x) {x[is.nan(x)]
 #       
 #     {urban [l, ][ ,k] <- 1 }
 # }
+urban[,bzeroone.index] <- lapply(urban[,bzeroone.index], function(x) {x[!(x==0)] <- 1; x})
+
 #-----------------------------------------------------------------------------------
 #converting b columns to factor
 #bcolumn.index
